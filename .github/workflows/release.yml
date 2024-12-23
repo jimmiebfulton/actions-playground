@@ -2,3 +2,10 @@
 on:
   push
 
+jobs:
+  create-release:
+    steps:
+      - name: Say Hello
+        shell: bash
+        run: |
+          echo "Hello, World!"
