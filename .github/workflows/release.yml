@@ -23,21 +23,23 @@ jobs:
         with:
           crate: cargo-workspaces
 
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Bump Version
         if: github.ref == 'refs/heads/main'
-        run: |
-          cargo release version ${{ inputs.level }} -x --no-confirm
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "[skip ci] Bump Version"
-          git push
-      - name: Bump Version
         shell: bash
         run: |
-          echo "Bumping Version"
-          sleep 10
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          cargo workspaces version patch -y --allow-branch main -m "Release %v [skip ci]"
+
+      - name: Capture Version
+        shell: bash
+        run: |
           version=$(cargo workspaces list --json | jq '.[0].version')
+          echo "New Version: $version"
+        
 
   create-release:
     runs-on: ubuntu-latest
