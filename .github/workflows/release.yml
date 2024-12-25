@@ -49,7 +49,7 @@ jobs:
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          version: ${{ needs.pre-release.outputs.version }}
+          version: ${{ steps.capture.outputs.version }}
         run: gh release create v${version} --draft --verify-tag --title v${version}
 
 
