@@ -11,7 +11,6 @@ jobs:
         shell: bash
         run: |
           echo: Bumping Version
-          sleep 10
 
   create-release:
     runs-on: ubuntu-latest
@@ -21,7 +20,6 @@ jobs:
         shell: bash
         run: |
           echo "Creating Github Release"
-          sleep 10
 
   build:
     runs-on: ubuntu-latest
@@ -32,6 +30,5 @@ jobs:
         run: |
           cargo_version=$(cargo --version)
           echo "Cargo Version: $cargo_version"
-          sleep 10
 
 
