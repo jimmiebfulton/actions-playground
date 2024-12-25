@@ -17,6 +17,7 @@ permissions: write-all
 
 jobs:
   bump:
+    name: Bump Version
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.bump.outputs.version }}
@@ -42,6 +43,7 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
   create-release:
+    name: Create Release
     runs-on: ubuntu-latest
     needs: [bump]
     steps:
@@ -56,7 +58,7 @@ jobs:
         run: gh release create v${version} --draft --verify-tag --title v${version}
 
   build:
-    name: ${{ matrix.platform }}-${{ matrix.arch }}
+    name: Build ${{ matrix.platform }}-${{ matrix.arch }}
     needs: [bump, create-release]
     strategy:
       fail-fast: true
@@ -87,6 +89,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
+      - name: Checkout Tag
+        uses: actions/checkout@v4
+        with:
+          ref: v${{ needs.bump.outputs.version }}
       - name: Finalize Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
