@@ -20,5 +20,6 @@ jobs:
         shell: bash
         run: |
           cargo_version=$(cargo --version)
-          printf "Cargo Version: $cargo_version
+          printf "Cargo Version: %s\n" $cargo_version
+
 
