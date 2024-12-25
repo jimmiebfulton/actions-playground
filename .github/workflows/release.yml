@@ -30,10 +30,10 @@ jobs:
             arch: x64
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Build ${{ matrix.platform }}-${{ matrix-arch }}
+      - name: Build ${{ matrix.platform }}-${{ matrix.arch }}
         shell: bash
         run: |
-          echo "Building ${{ matrix.platform }}-${{ matrix-arch }}"
+          echo "Building ${{ matrix.platform }}-${{ matrix.arch }}"
 
   build:
     runs-on: ubuntu-latest
