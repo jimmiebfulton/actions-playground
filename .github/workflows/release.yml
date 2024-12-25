@@ -37,7 +37,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          cargo workspaces version ${{ inputs.level }} -y --allow-branch main -m "Release %v [skip ci]" --no-individual-tags
+          cargo workspaces version ${{ inputs.level }} -y --allow-branch main -m "Release %v [skip ci]" --no-individual-tags --force '*'
       - name: Capture Bump
         id: capture
         shell: bash
