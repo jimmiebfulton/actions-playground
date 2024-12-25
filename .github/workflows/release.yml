@@ -13,11 +13,11 @@ on:
           - minor
           - patch
 
+permissions: write-all
+
 jobs:
   bump:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     outputs:
       version: ${{ steps.bump.outputs.version }}
     steps:
