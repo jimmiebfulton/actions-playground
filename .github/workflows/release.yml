@@ -17,6 +17,8 @@ on:
 jobs:
   bump:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Install cargo-workspaces
         uses: baptiste0928/cargo-install@v3
