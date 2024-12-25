@@ -49,11 +49,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           version=${{ needs.bump.outputs.version }}
-        run: gh release create v{$version} --draft --verify-tag --title v${version}
+        run: gh release create v$version --draft --verify-tag --title v$version
 
   build:
     name: ${{ matrix.platform }}-${{ matrix.arch }}
-    needs: [create-release]
+    needs: [bump]
     strategy:
       fail-fast: true
       matrix:
