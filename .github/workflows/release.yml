@@ -87,7 +87,7 @@ jobs:
   finalize-release:
     name: Finalize Release
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [bump, build]
     steps:
       - name: Checkout Tag
         uses: actions/checkout@v4
