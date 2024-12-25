@@ -18,16 +18,15 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        include:
-          - platform: linux
-            os: ubuntu-latest
-            arch: x64
-          - platform: macos
-            os: macos-latest
-            arch: aarch64
-          - platform: windows
-            os: windows-latest
-            arch: x64
+        - platform: linux
+          os: ubuntu-latest
+          arch: x64
+        - platform: macos
+          os: macos-latest
+          arch: aarch64
+        - platform: windows
+          os: windows-latest
+          arch: x64
     runs-on: ${{ matrix.os }}
     steps:
       - name: Build ${{ matrix.platform }}-${{ matrix.arch }}
