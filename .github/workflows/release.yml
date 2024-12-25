@@ -1,7 +1,18 @@
 name: Release
 
 on:
-  push
+  - push
+  - workflow_dispatch:
+    inputs:
+      level:
+        description: 'The level to bump for the release'
+        type: choice
+        required: false
+        default: patch
+        options:
+          - major
+          - minor
+          - patch
 
 jobs:
   bump:
