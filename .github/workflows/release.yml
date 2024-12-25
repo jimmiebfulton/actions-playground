@@ -1,5 +1,4 @@
 name: Release
-run-name: Relase on ${{ github.ref }}
 
 on:
   push
@@ -12,3 +11,13 @@ jobs:
         shell: bash
         run: |
           echo "Hello, World!"
+
+  build:
+    needs: [create-release]
+    steps:
+      - name: "Build"
+        shell: bash
+        run: |
+          cargo_version=$(cargo --version)
+          printf "Cargo Version: $cargo_version
+
