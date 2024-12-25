@@ -14,27 +14,6 @@ jobs:
           sleep 10
 
   create-release:
-    needs: [bump]
-    strategy:
-      fail-fast: true
-      matrix:
-        - platform: linux
-          os: ubuntu-latest
-          arch: x64
-        - platform: macos
-          os: macos-latest
-          arch: aarch64
-        - platform: windows
-          os: windows-latest
-          arch: x64
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Build ${{ matrix.platform }}-${{ matrix.arch }}
-        shell: bash
-        run: |
-          echo "Building ${{ matrix.platform }}-${{ matrix.arch }}"
-
-  build:
     runs-on: ubuntu-latest
     needs: [bump]
     steps:
@@ -44,5 +23,28 @@ jobs:
           cargo_version=$(cargo --version)
           echo "Cargo Version: $cargo_version"
           sleep 10
+
+  build:
+    name: ${{ matrix.platform }}-${{ matrix.arch }}
+    needs: [bump]
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - platform: linux
+            os: ubuntu-latest
+            arch: x86_64
+          - platform: macos
+            os: macos-latest
+            arch: aarch64
+          - platform: windows
+            os: windows-latest
+            arch: x86_64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Build ${{ matrix.platform }}-${{ matrix.arch }}
+        shell: bash
+        run: |
+          echo "Building ${{ matrix.platform }}-${{ matrix.arch }}"
 
 
