@@ -57,7 +57,7 @@ jobs:
 
   build:
     name: ${{ matrix.platform }}-${{ matrix.arch }}
-    needs: [create-release]
+    needs: [bump, create-release]
     strategy:
       fail-fast: true
       matrix:
