@@ -10,4 +10,4 @@ Current Steps:
 - Create Release
 - Build
 
-TODO: Remove weird tag
+TODO: Remove weird tag, take 2
