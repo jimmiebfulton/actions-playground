@@ -110,16 +110,18 @@ jobs:
           mkdir -p "${archive_prefix}" >> $GITHUB_ENV
           cp "$BINARY_PATH" "$archive_prefix"
           if [ "${{ matrix.platform }}" = "windows" ]; then
-            7z a "${archive_prefix}.zip" "${archive_prefix}"
-            certutil -hashfile "${archive_prefix}.zip" SHA256 > "${archive_prefix}.zip.sha256"
-            echo "ARCHIVE=${archive_prefix}.zip" >> $GITHUB_ENV
-            echo "ARCHIVE_SUM=${archive_prefix}.zip.sha256" >> $GITHUB_ENV
+            archive=${archive_prefix}.zip
+            archive_sum=${archive_prefix}.zip.sha256
+            7z a "${archive}" "${archive_prefix}"
+            certutil -hashfile "${archive}" SHA256 > "${archive_sum}"
           else
-            tar czf "${archive_prefix}.tar.gz" "${archive_prefix}"
-            shasum -a 256 "${archive_prefix}.tar.gz" > "${archive_prefix}.tar.gz.sha256"
-            echo "ARCHIVE=${archive_prefix}.tar.gz" >> $GITHUB_ENV
-            echo "ARCHIVE_SUM=${archive_prefix}.zip.sha256" >> $GITHUB_ENV
+            archive=${archive_prefix}.tar.gz
+            archive_sum=${archive_prefix}.tar.gz.sha256
+            tar czf "${archive}" "${archive_prefix}"
+            shasum -a 256 "${archive}" > "${archive_sum}"
           fi          
+          echo "ARCHIVE=${archive}" >> $GITHUB_ENV
+          echo "ARCHIVE_SUM=${archive_sum}" >> $GITHUB_ENV
 
       - name: Upload Release Archive
         env:
