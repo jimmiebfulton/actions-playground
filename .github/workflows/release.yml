@@ -15,6 +15,9 @@ on:
 
 permissions: write-all
 
+env:
+  binary: actions-playground
+
 jobs:
   pre-release:
     name: Pre Release
@@ -59,7 +62,6 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        binary: [actions-playground]
         include:
           - platform: linux
             os: ubuntu-latest
@@ -79,7 +81,7 @@ jobs:
       - name: Build ${{ matrix.platform }}-${{ matrix.arch }}
         shell: bash
         run: |
-          echo "Building ${{ matrix.platform }}-${{ matrix.arch }}"
+          echo "Building ${binary} for ${{ matrix.platform }}-${{ matrix.arch }}"
 
   post-release:
     name: Post Release
