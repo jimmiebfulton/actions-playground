@@ -105,7 +105,7 @@ jobs:
       - name: Create Archive
         shell: bash
         run: |
-          version="${{ needs.create-release.outputs.version }}"
+          version="${{ needs.pre-release.outputs.version }}"
           archive_prefix="${BINARY_NAME}-${version}-${{matrix.platform}}-${{matrix.arch}}"
           mkdir -p "${archive_prefix}" >> $GITHUB_ENV
           cp "$BINARY_PATH" "$archive_prefix"
@@ -126,7 +126,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
-          version="${{ needs.create-release.outputs.version }}"
+          version="${{ needs.pre-release.outputs.version }}"
           gh release upload v"$version" "${ARCHIVE}" "${ARCHIVE_SUM}"
 
 
