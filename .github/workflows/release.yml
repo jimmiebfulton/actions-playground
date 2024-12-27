@@ -17,7 +17,7 @@ permissions: write-all
 
 env:
   BINARY_NAME: actions-playground
-  DOWNLOAD_PREFIX: https://github.com/archetect/archetect/releases
+  DOWNLOAD_PREFIX: https://github.com/jimmiebfulton/actions-playground/releases
 
 jobs:
   pre-release:
