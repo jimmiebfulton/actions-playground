@@ -17,7 +17,7 @@ permissions: write-all
 
 env:
   BINARY_NAME: actions-playground
-  DOWNLOAD_PREFIX: https://github.com/jimmiebfulton/actions-playground/releases
+  DOWNLOAD_PREFIX: https://github.com/jimmiebfulton/actions-playground/releases/downloads
 
 jobs:
   pre-release:
