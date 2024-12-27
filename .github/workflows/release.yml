@@ -182,5 +182,5 @@ jobs:
               "linux-x86_64_archive": "${{ needs.build.outputs.linux-x86_64_archive }}",
               "linux-x86_64_sha256": "${{ needs.build.outputs.linux-x86_64_sha256 }}",
               "macos-arm64_archive": "${{ needs.build.outputs.macos-arm64_archive }}",
-              "macos-arm64_sha256": "${{ needs.build.outputs.macos-arm64_sha256 }}",
+              "macos-arm64_sha256": "${{ needs.build.outputs.macos-arm64_sha256 }}"
             }
