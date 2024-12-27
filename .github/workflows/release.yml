@@ -177,7 +177,7 @@ jobs:
             {
               "name": "actions-playground",
               "description": "Actions Playground CLI",
-              "homepage: "example.com",
+              "homepage": "example.com",
               "version": "${{ needs.pre-release.outputs.version }}",
               "linux-x86_64_archive": "${{ needs.build.outputs.linux-x86_64_archive }}",
               "linux-x86_64_sha256": "${{ needs.build.outputs.linux-x86_64_sha256 }}",
