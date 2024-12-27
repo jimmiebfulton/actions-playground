@@ -1,4 +1,4 @@
-name: Release
+name: Rsha256elease
 
 on:
   workflow_dispatch:
@@ -160,3 +160,27 @@ jobs:
         shell: bash
         run: gh release edit v${version} --draft=false --latest
 
+  update_homebrew_formula:
+    name: Update Homebrew Forumula
+    needs: [pre-release, build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Dispatch event to jimmiebfulton/homebrew-tap
+        uses: ph-fritsche/action-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          type: repository
+          repo: jimmiebfulton/homebrew-tap
+          ident: update-formula
+          payload: |
+            {
+              "name": "actions-playground",
+              "description: "Actions Playground CLI",
+              "homepage: "example.com",
+              "version": "${{ needs.pre-release.outputs.version }}",
+              "linux-x86_64_archive": "${{ needs.build.outputs.linux-x86_64_archive }}",
+              "linux-x86_64_sha256": "${{ needs.build.outputs.linux-x86_64_sha256 }}",
+              "macos-arm64_archive": "${{ needs.build.outputs.macos-arm64_archive }}",
+              "macos-arm64_sha256": "${{ needs.build.outputs.macos-arm64_sha256 }}",
+            }
