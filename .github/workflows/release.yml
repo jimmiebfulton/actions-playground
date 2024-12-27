@@ -69,7 +69,7 @@ jobs:
             arch: x86_64
           - platform: macos
             os: macos-latest
-            arch: aarch64
+            arch: arm64
           - platform: windows
             os: windows-latest
             arch: x86_64
@@ -129,7 +129,7 @@ jobs:
             tar czf "${archive}" "${archive_prefix}"
             shasum -a 256 "${archive}" > "${archive_sum}"
             echo "${{ matrix.platform }}-${{ matrix.arch}}_archive=$DOWNLOAD_PREFIX/${version}/${archive}" >> $GITHUB_OUTPUT
-            echo "${{ matrix.platform }}-${{ matrix.arch}}_sha256=$(cat $archive_sum | awk '{print $NF}')" >> $GITHUB_OUTPUT
+            echo "${{ matrix.platform }}-${{ matrix.arch}}_sha256=$(cat $archive_sum | awk '{print $1}')" >> $GITHUB_OUTPUT
           fi          
           echo "ARCHIVE=${archive}" >> $GITHUB_ENV
           echo "ARCHIVE_SUM=${archive_sum}" >> $GITHUB_ENV
