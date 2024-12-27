@@ -17,7 +17,6 @@ permissions: write-all
 
 env:
   BINARY_NAME: actions-playground
-  DOWNLOAD_PREFIX: https://github.com/jimmiebfulton/actions-playground/releases/downloads
 
 jobs:
   pre-release:
@@ -128,7 +127,7 @@ jobs:
             archive_sum=${archive_prefix}.tar.gz.sha256
             tar czf "${archive}" "${archive_prefix}"
             shasum -a 256 "${archive}" > "${archive_sum}"
-            echo "${{ matrix.platform }}-${{ matrix.arch}}_archive=$DOWNLOAD_PREFIX/${version}/${archive}" >> $GITHUB_OUTPUT
+            echo "${{ matrix.platform }}-${{ matrix.arch}}_archive=${version}/${archive}" >> $GITHUB_OUTPUT
             echo "${{ matrix.platform }}-${{ matrix.arch}}_sha256=$(cat $archive_sum | awk '{print $1}')" >> $GITHUB_OUTPUT
           fi          
           echo "ARCHIVE=${archive}" >> $GITHUB_ENV
