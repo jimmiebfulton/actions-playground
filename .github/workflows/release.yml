@@ -1,4 +1,4 @@
-name: Rsha256elease
+name: Release
 
 on:
   workflow_dispatch:
