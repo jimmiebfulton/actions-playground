@@ -75,9 +75,9 @@ jobs:
             arch: x86_64
 
     outputs:
-      linux-x86_64_artifact: ${{ steps.create-archive.outputs.linux-x86_64_archive }}
+      linux-x86_64_archive: ${{ steps.create-archive.outputs.linux-x86_64_archive }}
       linux-x86_64_sha256: ${{ steps.create-archive.outputs.linux-x86_64_sha256 }}
-      macos-arm64_artifact: ${{ steps.create-archive.outputs.macos-arm64_archive }}
+      macos-arm64_archive: ${{ steps.create-archive.outputs.macos-arm64_archive }}
       macos-arm64_sha256: ${{ steps.create-archive.outputs.macos-arm64_sha256 }}
 
     runs-on: ${{ matrix.os }}
@@ -174,7 +174,7 @@ jobs:
           payload: |
             {
               "name": "actions-playground",
-              "description": "Actions Playground CLI",
+              "description": "ActionsPlaygroundCLI",
               "homepage": "example.com",
               "version": "${{ needs.pre-release.outputs.version }}",
               "linux-x86_64_archive": "${{ needs.build.outputs.linux-x86_64_archive }}",
