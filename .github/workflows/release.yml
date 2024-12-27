@@ -17,6 +17,7 @@ permissions: write-all
 
 env:
   BINARY_NAME: actions-playground
+  DOWNLOAD_PREFIX: https://github.com/archetect/archetect/releases
 
 jobs:
   pre-release:
@@ -72,6 +73,13 @@ jobs:
           - platform: windows
             os: windows-latest
             arch: x86_64
+    outputs:
+      linux-x86_64_sha256: ${{ steps.nix_upload.outputs.linux-x86_64_sha256 }}
+      linux-x86_64_artifact: ${{ steps.nix_upload.outputs.linux-x86_64_artifact }}
+      macos-arm64_sha256: ${{ steps.nix_upload.outputs.darwin-arm64_sha256 }}
+      macos-arm64_artifact: ${{ steps.nix_upload.outputs.darwin-arm64_artifact }}
+      macos-x86_64_sha256: ${{ steps.nix_upload.outputs.darwin-x86_64_sha256 }}
+      macos-x86_64_artifact: ${{ steps.nix_upload.outputs.darwin-x86_64_artifact }}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Tag
@@ -105,7 +113,7 @@ jobs:
       - name: Create Archive
         shell: bash
         run: |
-          version="${{ needs.pre-release.outputs.version }}"
+          version="v${{ needs.pre-release.outputs.version }}"
           archive_prefix="${BINARY_NAME}-${version}-${{matrix.platform}}-${{matrix.arch}}"
           mkdir -p "${archive_prefix}" >> $GITHUB_ENV
           cp "$BINARY_PATH" "$archive_prefix"
@@ -119,6 +127,8 @@ jobs:
             archive_sum=${archive_prefix}.tar.gz.sha256
             tar czf "${archive}" "${archive_prefix}"
             shasum -a 256 "${archive}" > "${archive_sum}"
+            echo "${{ matrix.platform }}-${{ matrix.arch}_artifact=$DOWNLOAD_PREFIX/${version}/${archive}" >> $GITHUB_OUTPUT
+            echo "${{ matrix.platform }}-${{ matrix.arch}_sha256=$(cat $archive_sum | awk '{print $NF}')" >> $GITHUB_OUTPUT
           fi          
           echo "ARCHIVE=${archive}" >> $GITHUB_ENV
           echo "ARCHIVE_SUM=${archive_sum}" >> $GITHUB_ENV
