@@ -177,7 +177,7 @@ jobs:
             {
               "binary": "${{ env.BINARY_NAME }}",
               "homepage": "${{ env.BINARY_HOMEPAGE }}",
-              "description": "${{ BINARY_DESCRIPTION }}",
+              "description": "${{ env.BINARY_DESCRIPTION }}",
               "version": "${{ needs.pre-release.outputs.version }}",
               "linux-x86_64_archive": "https://github.com/${{ github.repository }}/${{ needs.build.outputs.linux-x86_64_archive }}",
               "linux-x86_64_sha256": "https://github.com/${{ github.repository }}/${{ needs.build.outputs.linux-x86_64_sha256 }}",
