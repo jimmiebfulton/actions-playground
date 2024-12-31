@@ -19,7 +19,7 @@ env:
   BINARY_NAME: actions-playground
   BINARY_HOMEPAGE: "https://github.com/${{ github.repository }}" 
   BINARY_DESCRIPTION: "Actions Playground"
-  DOWNLOAD_PREFIX: "https://github.com/${{ github.repository }}/downloads"
+  DOWNLOAD_PREFIX: "https://github.com/${{ github.repository }}/release/download"
   DESTINATION_HOMEBREW_TAP: ${{ github.repository_owner }}/homebrew-tap
   COMMIT_USER: github-actions
   COMMIT_EMAIL: github-actions@users.noreply.github.com
