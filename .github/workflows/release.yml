@@ -20,6 +20,9 @@ env:
   BINARY_HOMEPAGE: "https://github.com/${{ github.repository }}" 
   BINARY_DESCRIPTION: "Actions Playground"
   DOWNLOAD_PREFIX: "https://github.com/${{ github.repository }}/downloads"
+  DESTINATION_HOMEBREW_TAP: ${{ github.repository_owner }}/homebrew-tap
+  COMMIT_USER: github-actions
+  COMMIT_EMAIL: github-actions@users.noreply.github.com
 
 jobs:
   pre-release:
@@ -40,8 +43,8 @@ jobs:
         if: github.ref == 'refs/heads/main'
         shell: bash
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@users.noreply.github.com
+          git config user.name ${{ env.COMMIT_USER }}
+          git config user.email ${{ env.COMMIT_EMAIL }}
           cargo workspaces version ${{ inputs.level }} -y --allow-branch main -m "Release %v [skip ci]" --no-individual-tags --force '*'
 
       - name: Capture Version
@@ -167,12 +170,12 @@ jobs:
     needs: [pre-release, build]
     runs-on: ubuntu-latest
     steps:
-      - name: Dispatch event to ${{ github.repository_owner }}/homebrew-tap
+      - name: Dispatch event to ${{ env.DESTINATION_HOMEBREW_TAP }}
         uses: ph-fritsche/action-dispatch@v1
         with:
           token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
           type: repository
-          repo: ${{ github.repository_owner }}/homebrew-tap
+          repo: ${{ env.DESTINATION_HOMEBREW_TAP }}
           ident: update-formula
           payload: |
             {
