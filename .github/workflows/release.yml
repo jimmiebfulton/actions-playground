@@ -184,7 +184,7 @@ jobs:
               "description": "${{ env.BINARY_DESCRIPTION }}",
               "version": "${{ needs.pre-release.outputs.version }}",
               "linux-x86_64_archive": "${{ env.DOWNLOAD_PREFIX }}/${{ needs.build.outputs.linux-x86_64_archive }}",
-              "linux-x86_64_sha256": "${{ env.DOWNLOAD_PREFIX }}/${{ needs.build.outputs.linux-x86_64_sha256 }}",
+              "linux-x86_64_sha256": "${{ needs.build.outputs.linux-x86_64_sha256 }}",
               "macos-arm64_archive": "${{ env.DOWNLOAD_PREFIX }}/${{ needs.build.outputs.macos-arm64_archive }}",
-              "macos-arm64_sha256": "${{ env.DOWNLOAD_PREFIX }}/${{ needs.build.outputs.macos-arm64_sha256 }}"
+              "macos-arm64_sha256": "${{ needs.build.outputs.macos-arm64_sha256 }}"
             }
